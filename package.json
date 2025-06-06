@@ -6,7 +6,13 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "database:generate": "drizzle-kit generate --config=config/database.ts",
+    "database:migrate": "drizzle-kit migrate --config=config/database.ts",
+    "database:push": "drizzle-kit push --config=config/database.ts",
+    "database:pull": "drizzle-kit pull --config=config/database.ts",
+    "test": "playwright test --config=config/testing.ts",
+    "test:ui": "playwright test --config=config/testing.ts --ui"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.0",
