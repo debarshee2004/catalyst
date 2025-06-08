@@ -1,12 +1,17 @@
-import type { NextRequest } from "next/server";
-import { NextResponse } from "next/server";
+import { getSessionCookie } from "better-auth/cookies";
+import { NextRequest, NextResponse } from "next/server";
 
-// This function can be marked `async` if using `await` inside
-export function middleware(request: NextRequest) {
-  return NextResponse.redirect(new URL("/home", request.url));
+export async function middleware(request: NextRequest) {
+  const sessionCookie = getSessionCookie(request);
+
+  if (!sessionCookie) {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
+
+  return NextResponse.next();
 }
 
-// See "Matching Paths" below to learn more
+// Specify the routes the middleware applies to
 export const config = {
-  matcher: "/about/:path*",
+  matcher: ["/dashboard"],
 };
